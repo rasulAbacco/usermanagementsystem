@@ -8,9 +8,10 @@ dotenv.config();
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     dialectOptions: {
-        
-            ssl: false // Only for Render/Heroku-style SSL
-
+        ssl: {
+            require: true,
+            rejectUnauthorized: false, // Only for Render/Heroku-style SSL
+        },
     },
 });
 
