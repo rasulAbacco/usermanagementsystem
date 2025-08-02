@@ -8,7 +8,7 @@ import { Document, Packer, Paragraph, Table as DocTable, TableCell, TableRow, Te
 import { GiCrossedSabres, GiElephantHead } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import UserRow from "../components/UserRow";
-import "../styles/UserList.css"; // Import external CSS
+import "../styles/userList.css"; // Import external CSS
 
 const API_URL = import.meta.env.VITE_API_URL;
 
