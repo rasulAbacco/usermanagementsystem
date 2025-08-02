@@ -1,12 +1,19 @@
 
 import { Sequelize }  from 'sequelize';
 import { createUserModel } from '../model/userSchema.js';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
-const sequelize = new Sequelize('postgres', 'postgres', 'root', {
-    host: 'localhost',
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
+    dialectOptions: {
+        
+            ssl: false // Only for Render/Heroku-style SSL
+
+    },
 });
+
 
 
 let UserModel = null;
