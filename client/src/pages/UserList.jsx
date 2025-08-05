@@ -23,13 +23,22 @@ const UserList = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await fetch(`${API_URL}/users`);
+            const token = localStorage.getItem("token");
+            const res = await fetch(`${API_URL}/users`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // ✅ Required!
+                },
+            });
+
             const data = await res.json();
             setUsers(Array.isArray(data) ? data : data.users || []);
-        } catch {
+        } catch (err) {
+            console.error("Error fetching users:", err);
             setUsers([]);
         }
     };
+
 
     const deleteUser = async (id) => {
         if (!window.confirm("Delete user?")) return;
@@ -126,7 +135,7 @@ const UserList = () => {
                             </div>
                         </div>
                         <button
-                            onClick={() => navigate("/users")}
+                            onClick={() => navigate("/addUsers")}
                             className="add-user-btn"
                         >
                             <FaPlus />

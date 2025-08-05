@@ -40,7 +40,7 @@ const UserForm = () => {
                 setMessage(data.message || 'Failed to create user');
             }
         } catch (err) {
-            setMessage('Server error');
+            setMessage('Server error' + err.message || 'An error occurred');
         }
     };
 

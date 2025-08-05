@@ -1,30 +1,46 @@
-// App.jsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import MenShoes from './pages/MenShoes';
-import WomenShoes from './pages/WomenShoes';
-import KidsShoes from './pages/KidsShoes';
-import Navbar from './components/Navbar';
-import NikeLandingPage from './pages/NikeLandingPage';
 import UserForm from './pages/UserForm';
 import Users from "./pages/UserList";
-import EditUser from '../src/components/EditUser'; // adjust path
+import EditUser from './components/EditUser';
+import Register from './pages/Register';
+import Login from './pages/LoginPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <>
-      {/* <Navbar /> */}
+    <AuthProvider>
       <Routes>
-        <Route path="/" element={<Users />} />
-        <Route path="/users" element={<UserForm />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-        <Route path="/users/:id" element={<EditUser />} />
-
-        {/* <Route path="/men" element={<MenShoes />} />
-        <Route path="/women" element={<WomenShoes />} />
-        <Route path="/kids" element={<KidsShoes />} /> */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/addUsers"
+          element={
+            <ProtectedRoute>
+              <UserForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/:id"
+          element={
+            <ProtectedRoute>
+              <EditUser />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </>
+    </AuthProvider>
   );
 }
 
